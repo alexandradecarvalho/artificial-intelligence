@@ -23,13 +23,17 @@ def exists(l, element):
 
 # 4 - Recursive function that, given two lists, returns their concatenation
 def concatenation(l1, l2):
-	if l2:
-		l1 += l2[0] + concatenation(l2[1:])
-	return l1
+    if l2:
+        l1.append(l2[0])
+        concatenation((l1), l2[1:])
+    return l1
 
-# 5 - Function that, given a list, returns its reverse
+# 5 - Recursive function that, given a list, returns its reverse
 def reverse(l):
-	pass
+	if l:
+		return [l[-1]] + reverse(l[:-1])
+	else:
+		return []
 
 # 6 - Function that, given a list, checks if it is a palindrome
 def isPalindrome(l):
