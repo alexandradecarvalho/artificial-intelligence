@@ -37,7 +37,10 @@ def reverse(l):
 
 # 6 - Function that, given a list, checks if it is a palindrome
 def isPalindrome(l):
-	pass
+	if l:
+		return (l[0] == l[-1]) and isPalindrome(l[1:-1])
+	else:
+		return True
 
 # 7 - Function that, given a list of lists, returns their concatenation
 def multipleConcatenation(l):
