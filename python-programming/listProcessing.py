@@ -17,7 +17,7 @@ def numberSum(l):
 # 3 - Recursive function that, given a list and an element, checks if the element exists on the list, returning the respective boolean
 def exists(l, element):
 	if l:
-		return (int(l[0]) == element) or exists(l[1:], element)
+		return (l[0] == element) or exists(l[1:], element)
 	else:
 		return False
 
@@ -44,11 +44,25 @@ def isPalindrome(l):
 
 # 7 - Function that, given a list of lists, returns their concatenation
 def multipleConcatenation(l):
-	pass
+	if len(l) > 1:
+		print(l[0] + l[1])
+		return l[0] + l[1] + multipleConcatenation(l[2:])
+	elif len(l) == 1:
+		return l[0]
+	else:
+		return []
 
 # 8 - Function that, given a list and elements x and y, returns a similar list but on which all occurences of x are replaced by y
 def replace(l, original, new):
-	pass
+	final_list = []
+	if l:
+		if l[0] == original:
+			final_list.append(new)
+		else:
+			final_list.append(l[0])
+
+		return final_list + replace(l[1:], original, new)
+	return []
 
 # 9 - Function that, given two ordered lists of numbers, returns their ordered merge, keeping any repetitions
 def orderedMerge(l1, l2):
