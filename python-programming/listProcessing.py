@@ -7,7 +7,10 @@ def size(l):
 
 # 2 - Recursive function that, given a list of numbers, returns their sum
 def numberSum(l):
-	pass
+	sum = 0
+	if l:
+		sum += l[0] + numberSum(l[1:])
+	return sum
 
 # 3 - Function that, given a list and an element, checks if the element exists on the list, returning the respective boolean
 def exists(l, element):
