@@ -12,9 +12,13 @@ def numberSum(l):
 		sum += l[0] + numberSum(l[1:])
 	return sum
 
-# 3 - Function that, given a list and an element, checks if the element exists on the list, returning the respective boolean
+# 3 - Recursive function that, given a list and an element, checks if the element exists on the list, returning the respective boolean
 def exists(l, element):
-	pass
+	if l:
+		ans = (int(l[0]) == element)
+		return ans or exists(l[1:], element)
+	else:
+		return False
 
 # 4 - Function that, given two lists, returns their concatenation
 def concatenation(l1, l2):
