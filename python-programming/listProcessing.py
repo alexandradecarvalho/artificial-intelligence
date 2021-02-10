@@ -1,3 +1,5 @@
+import copy 
+
 # 1 - Recursive function that, given a list, returns its size
 def size(l):
 	s = 0
@@ -15,14 +17,15 @@ def numberSum(l):
 # 3 - Recursive function that, given a list and an element, checks if the element exists on the list, returning the respective boolean
 def exists(l, element):
 	if l:
-		ans = (int(l[0]) == element)
-		return ans or exists(l[1:], element)
+		return (int(l[0]) == element) or exists(l[1:], element)
 	else:
 		return False
 
-# 4 - Function that, given two lists, returns their concatenation
+# 4 - Recursive function that, given two lists, returns their concatenation
 def concatenation(l1, l2):
-	pass
+	if l2:
+		l1 += l2[0] + concatenation(l2[1:])
+	return l1
 
 # 5 - Function that, given a list, returns its reverse
 def reverse(l):
