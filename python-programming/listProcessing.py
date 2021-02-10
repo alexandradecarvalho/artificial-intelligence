@@ -1,8 +1,11 @@
-# 1 - Function that, given a list, returns its size
+# 1 - Recursive function that, given a list, returns its size
 def size(l):
-	return 
+	s = 0
+	if l:
+		s += 1 + size(l[1:])	
+	return s
 
-# 2 - Function that, given a list of numbers, returns their sum
+# 2 - Recursive function that, given a list of numbers, returns their sum
 def numberSum(l):
 	pass
 
