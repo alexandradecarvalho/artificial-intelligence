@@ -35,14 +35,14 @@ def reverse(l):
 	else:
 		return []
 
-# 6 - Function that, given a list, checks if it is a palindrome
+# 6 - Recursive function that, given a list, checks if it is a palindrome
 def isPalindrome(l):
 	if l:
 		return (l[0] == l[-1]) and isPalindrome(l[1:-1])
 	else:
 		return True
 
-# 7 - Function that, given a list of lists, returns their concatenation
+# 7 - Recursive function that, given a list of lists, returns their concatenation
 def multipleConcatenation(l):
 	if len(l) > 1:
 		print(l[0] + l[1])
@@ -52,7 +52,7 @@ def multipleConcatenation(l):
 	else:
 		return []
 
-# 8 - Function that, given a list and elements x and y, returns a similar list but on which all occurences of x are replaced by y
+# 8 - Recursive function that, given a list and elements x and y, returns a similar list but on which all occurences of x are replaced by y
 def replace(l, original, new):
 	final_list = []
 	if l:
@@ -64,13 +64,13 @@ def replace(l, original, new):
 		return final_list + replace(l[1:], original, new)
 	return []
 
-# 9 - Function that, given two ordered lists of numbers, returns their ordered merge, keeping any repetitions
+# 9 - Recursive function that, given two ordered lists of numbers, returns their ordered merge, keeping any repetitions
 def orderedMerge(l1, l2):
     if l2:
         l1.append(l2[0])
         orderedMerge(l1, l2[1:])
     return sorted(l1)
 
-# 10 - Function that, given a list, returns a list of all subsets in a form of list of lists
+# 10 - Recursive function that, given a list, returns a list of all subsets in a form of list of lists
 def allSubsets(l):
-	pass
+	return reduce(lambda result, x: result + [subset + [x] for subset in result], l, [[]])
