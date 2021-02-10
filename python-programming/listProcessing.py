@@ -1,5 +1,3 @@
-import copy 
-
 # 1 - Recursive function that, given a list, returns its size
 def size(l):
 	s = 0
