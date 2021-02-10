@@ -50,7 +50,7 @@ def multipleConcatenation(l):
 	else:
 		return []
 
-# 8 - Recursive function that, given a list and elements x and y, returns a similar list but on which all occurences of x are replaced by y
+# 8 - Recursive function that, given a list and elements x and y, returns a similar list but on which all occurrences of x are replaced by y
 def replace(l, original, new):
 	final_list = []
 	if l:
