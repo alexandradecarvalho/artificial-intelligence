@@ -13,6 +13,8 @@ isLower = lambda x,y : abs(x) < abs(y)
 polarCoordinates = lambda pair : None if pair[0] == 0 else (math.sqrt(pow(pair[0],2) + pow(pair[1],2)), math.atan(pair[1]/pair[0]))
 
 #5 - Function that, given 3 functions of two arguments each, f, g, and h, returns the function with 3 arguments x, y and z = h(f(x,y), g(y,z))
+def compoundFunction(f,g,h,x,y,z):
+    return h(f(x,y), g(y,z))
 
 #6 - Function that, given a list and a unary boolean function, returns True if the function is positive for all elements in the list and False otherwise
 
@@ -37,7 +39,14 @@ polarCoordinates = lambda pair : None if pair[0] == 0 else (math.sqrt(pow(pair[0
 #16 - Function that, given a list of lists, a function and its neutral element, returns a list of numbers resulting in the reduction of each list through the function
 
 if __name__ == "__main__":
-    print("isOdd ? [200:" + str(isOdd(200)) + ", 353:" + str(isOdd(353)) + ", 0:" + str(isOdd(0)) + ", -5:" + str(isOdd(-5)) + "]")
-    print("isPositive ? [200:" + str(isPositive(200)) + ", 353:" + str(isPositive(353)) + ", 0:" + str(isPositive(0)) + ", -5:" + str(isPositive(-5)) + "]")
-    print("isLower ? [|200| < |353|:" + str(isLower(200,353)) + ", |353| < |0|:" + str(isLower(353,0)) + ", |0| < |-5|:" + str(isLower(0, -5)) + ", |-5|<|3|:" + str(isLower(-5,3)) + "]")
-    print("polarCoordinates ? [(200,353):" + str(polarCoordinates((200,353))) + ", (353,0):" + str(polarCoordinates((353,0))) + ", (0,-5):" + str(polarCoordinates((0, -5))) + ", (-5,3):" + str(polarCoordinates((-5,3))) + "]")
+    
+    print("1 - isOdd ? [200:" + str(isOdd(200)) + ", 353:" + str(isOdd(353)) + ", 0:" + str(isOdd(0)) + ", -5:" + str(isOdd(-5)) + "]")
+    print("2 - isPositive ? [200:" + str(isPositive(200)) + ", 353:" + str(isPositive(353)) + ", 0:" + str(isPositive(0)) + ", -5:" + str(isPositive(-5)) + "]")
+    print("3 - isLower ? [|200| < |353|:" + str(isLower(200,353)) + ", |353| < |0|:" + str(isLower(353,0)) + ", |0| < |-5|:" + str(isLower(0, -5)) + ", |-5|<|3|:" + str(isLower(-5,3)) + "]")
+    print("4 - polarCoordinates ? [(200,353):" + str(polarCoordinates((200,353))) + ", (353,0):" + str(polarCoordinates((353,0))) + ", (0,-5):" + str(polarCoordinates((0, -5))) + ", (-5,3):" + str(polarCoordinates((-5,3))) + "]")
+    
+    bothTrue = lambda x, y : x and y 
+    arePositive = lambda x, y : True if x >= 0 and y >= 0 else False
+    print("5 - compoundFunction ? [bothTrue(arePositive(200,353), isLower(353,0)):" + str(compoundFunction(arePositive, isLower, bothTrue, 200,353,0)) + ", isLower(bothTrue(353,0), arePositive(0,-5)):" + str(compoundFunction(bothTrue, arePositive, isLower, 353,0, -5)) + ", arePositive(isLower(0, -5), bothTrue(-5,3)):" + str(compoundFunction(isLower, bothTrue, arePositive, 0, -5, 3)) + "]")
+
+    
