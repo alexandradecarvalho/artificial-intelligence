@@ -76,8 +76,8 @@ def test_ranking(mock_ranking):
     assert mock_ranking.call_count == 5
 
 #Exercicio 3.4
-@mock.patch('functionsReturningNone.menor', side_effect = functionsReturningNone.menor)
-def test_menor(mock_menor):
-    assert mock_menor([1,2,3,0,5]) == 0
-    assert mock_menor.call_count == 6
-    assert mock_menor([]) == None
+@mock.patch('functionsReturningNone.lowest', side_effect = functionsReturningNone.lowest)
+def test_lowest(mock_lowest):
+    assert mock_lowest([1,2,3,0,5]) == 0
+    assert mock_lowest.call_count == 6
+    assert mock_lowest([]) == None
