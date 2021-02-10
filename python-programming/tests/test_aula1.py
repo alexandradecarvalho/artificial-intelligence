@@ -70,9 +70,9 @@ def test_splitting(mock_splitting):
 #Exercicio 3.3
 @mock.patch('functionsReturningNone.ranking', side_effect = functionsReturningNone.ranking)
 def test_ranking(mock_ranking):
-    assert mock_ranking([1,2,3], ['a','b','c']) == [(1, 'a'), (2, 'b'), (3, 'c')]
+    assert mock_ranking(([1,2,3], ['a','b','c'])) == [(1, 'a'), (2, 'b'), (3, 'c')]
     assert mock_ranking.call_count == 4
-    assert mock_ranking([1,2,3], ['a','b','c','d']) == None
+    assert mock_ranking(([1,2,3], ['a','b','c','d'])) == None
     assert mock_ranking.call_count == 5
 
 #Exercicio 3.4
