@@ -66,7 +66,10 @@ def replace(l, original, new):
 
 # 9 - Function that, given two ordered lists of numbers, returns their ordered merge, keeping any repetitions
 def orderedMerge(l1, l2):
-	pass
+    if l2:
+        l1.append(l2[0])
+        orderedMerge(l1, l2[1:])
+    return sorted(l1)
 
 # 10 - Function that, given a list, returns a list of all subsets in a form of list of lists
 def allSubsets(l):
