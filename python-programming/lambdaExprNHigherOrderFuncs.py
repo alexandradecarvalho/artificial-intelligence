@@ -49,31 +49,90 @@ def lowest(l, relationship):
 
 #10 - Function that, given a not empty list and an order relationship, returns a tuple with the lowest element on the list according to that order and a list with all the other elements
 def popLowest(l, relationship):
-	if l:
-		minor_node = l[0] if relationship(l[0],l[-1]) else l[-1]
-		next_search_list = l[:-1] if relationship(l[0],l[-1]) else l[1:]
-		without_lowest_list = l[1:] if relationship(l[0],l[-1]) else l[:-1]
+    if l:
+        minor_node = l[0] if relationship(l[0],l[-1]) else l[-1]
+        next_search_list = l[:-1] if relationship(l[0],l[-1]) else l[1:]
+        without_lowest_list = l[1:] if relationship(l[0],l[-1]) else l[:-1]
 
-		recursive_answer = popLowest(next_search_list, relationship)
-		if recursive_answer == None:
-			return (minor_node, without_lowest_list)
-		else:
-			recursive_mini = recursive_answer[0]
-			return (minor_node, without_lowest_list) if not relationship(recursive_mini, minor_node) else (recursive_mini, [x for x in l if x != recursive_mini])
-	else:
-		return None
+        recursive_answer = popLowest(next_search_list, relationship)
+        if recursive_answer == None:
+            return (minor_node, without_lowest_list)
+        else:
+            recursive_mini = recursive_answer[0]
+            return (minor_node, without_lowest_list) if not relationship(recursive_mini, minor_node) else (recursive_mini, [x for x in l if x != recursive_mini])
+    else:
+        return None
 
 #11 - Function that, given a list with at least 2 elements and an order relationship, returns a triple with the two lowest elements in the list according to that order and a list with all the other elements
+def pop2Lowest(l,relationship):
+    if len(l)>=4:
+        recursive_min1, recursive_min2, recursive_list = pop2Lowest([l[0], l[1], l[2]], relationship)
+        x1,x2, rlist = pop2Lowest([recursive_min1, recursive_min2] + l[3:], relationship)
+        return (x1, x2, [x for x in l if x != x1 and x != x2])
+    elif len(l) == 3:
+        max_val = l[1] if relationship(l[0], l[1]) else l[0]
+        max_val = max_val if relationship(l[2], max_val) else l[2]
+        l_wo_max = [x for x in l if x != max_val]
+        return (l_wo_max[0], l_wo_max[1], [max_val])
+    elif len(l) == 2:
+        return (l[0], l[1], [])
+    else:
+        return None
 
 #12 - Function that, given a list of tuples (x,y), representing Cartesian coordinates of points, returns a list of pairs (r, θ), corresponding to the polar coordinates of those points
+def cartesian2polar(l):
+    if len(l) > 1:
+        return [polarCoordinates(l[0])] + cartesian2polar(l[1:]) 
+    else:
+        return [polarCoordinates(l[0])]
 
 #13 - Function that, given two lists and an order relationship, and knowing that the lists are ordered by the order relationship, returns the ordered merge of both lists, maintaining any repetition
+def sortedMerge(l1, l2, relationship):
+    if l2:
+        new_element = l2[0]
+        idx = 0
+        length = len(l1)
+        hasInserted = 0
+        while idx < length:
+            if relationship(new_element, l1[idx]):
+                l1.insert(idx, new_element)
+                hasInserted = 1
+                break
+            idx += 1
+        if not hasInserted:
+            l1.append(new_element)
+        return l1[:idx+1] + sortedMerge(l1[idx+1:], l2[1:], relationship)
+    else:
+        return l1
 
 #14 - Function that, given a list of lists and a function, applies it to each element of the lists and concatenates them
+def applyNJoin(l, f):
+    if l:
+        lista = l[0]
+        res = []
+        for x in lista:
+            res.append(f(x))
+        return res + applyNJoin(l[1:], f)
+    else:
+        return []
 
 #15 - Function that, given a tuple of lists and a binary function, returns a list with the results of applying the function to the pairs of elements in the same position of both lists
+def crossApply(tupl,f):
+    l1, l2 = tupl
+    if l1 and l2:
+        return [f(l1[0],l2[0])] + crossApply((l1[1:], l2[1:]), f)
+    else:
+        return []
 
 #16 - Function that, given a list of lists, a function and its neutral element, returns a list of numbers resulting in the reduction of each list through the function
+def reduction(l, f, neutral):
+    if l:
+        lista = l[0]
+        return [f(lista)] + reduction(l[1:], f, neutral)
+    else: 
+        return [] 
+
+
 
 if __name__ == "__main__":
     
@@ -91,6 +150,17 @@ if __name__ == "__main__":
     print("8 - subgroup ? [[200,353,0],[-5,1,3]:" + str(subgroup([200,353,0], [-5,1,3])) + ", [353,0,-5],[200,0,353]:" + str(subgroup([353,0,-5], [200,0,353])) + ", [0,3,200],[3,353,35]:" + str(subgroup([0,3,200], [3,353,35])) + ", [3,200],[3,353,35,200]:" + str(subgroup([3,200], [3,353,35,200])) + "]")
     
     absLT = lambda x, y : True if abs(x) < abs(y) else False
-    print("9 - lowest ? [absLT([200,353,0,-5,3]):" + str(lowest([200,353,0,-5,3], absLT)) + "]")
+    print("9 - lowest ? absLT([200,353,0,-5,3]):" + str(lowest([200,353,0,-5,3], absLT)) + "]")
+    print("10 - popLowest ? absLT([200,353,0,-5,3]):" + str(popLowest([200,353,0,-5,3], absLT)) + "]")
+    print("11 - pop2Lowest ? absLT([200,353,0,-5,3]):" + str(pop2Lowest([200,353,0,-5,3], absLT)) + "]")    
+    print("12 - list of polarCoordinates ? [(200,353), (353,0), (0,-5), (-5,3)]: " + str(cartesian2polar([(200,353), (353,0), (0,-5), (-5,3)])))
+    print("13 - sortedMerge ? [absLT([200,353,0],[-5,1,3]):" + str(sortedMerge([0,200,353], [1,3,-5], absLT)) + ", absLT([353,0,-5],[200,0,353]):" + str(sortedMerge([0,-5, 353], [0,200,353], absLT)) + ", absLT([0,3,200],[3,353,35]):" + str(sortedMerge([0,3,200], [3,35,353], absLT)) + ", absLT([3,200],[3,353,35,200]):" + str(sortedMerge([3,200], [3,35,200,353], absLT)) + "]")
     
-    print("10 - popLowest ? [absLT([200,353,0,-5,3]):" + str(popLowest([200,353,0,-5,3], absLT)) + "]")
+    square = lambda x : pow(x,2)
+    print("14 - apply and Join ? square([0,1,2,3],[4,5,6],[7,8,9],[10]):" + str(applyNJoin([[0,1,2,3], [4,5,6], [7,8,9], [10]], square)))
+    
+    powered = lambda x,y : pow(x,y)
+    print("15 - cross apply ? powered([0,1,2,3],[4,5,6]):" + str(crossApply(([0,1,2,3], [4,5,6]), powered)) + ", powered([7,8,9],[10]): " + str(crossApply(([7,8,9],[10]), powered)))
+    
+    soma = lambda x : sum(x)
+    print("16 - reduction ? soma([0,1,2,3],[4,5,6],[7,8,9],[10]):" + str(reduction([[0,1,2,3], [4,5,6], [7,8,9], [10]], soma,1)))
