@@ -4,6 +4,9 @@ class Constant:
 
     def calculate(self):
         return self
+    
+    def calculate(self):
+        return self
 
     def __str__(self):
         return str(self.value)
@@ -14,6 +17,9 @@ class Variable:
         self.value = value
 
     def calculate(self):
+        return Constant(self.value)
+    
+    def simplify(self):
         return Constant(self.value)
 
     def __str__(self):
@@ -73,120 +79,23 @@ class Product:
 
 if __name__ == "__main__":
     
-    c = Constant(5)
-    print("str(c): ")
-    print(c)
-    print("c.value: ")
-    print(c.value)
-    print("c.calculate(): ")
-    print(c.calculate())
+    const_seventy_three = Constant(73)
+    print(const_seventy_three)
 
-    print()
+    varx = Variable("x", 2)
+    print(varx.name)
 
-    var = Variable("var", 2)
-    print("str(var): ")
-    print(var)
-    print("var.name: ")
-    print(var.name)
-    print("var.value: ")
-    print(var.value)
-    print("var.calculate(): ")
-    print(var.calculate())
+    const_three = Constant(3)
+    const_four = Constant(4)
+    const_seven = Constant(7)
+    p1 = Product(const_four,const_seven)
+    s1 = Sum(const_three, p1.result)
+    print(s1)
 
-    print()
-    
-    car = Variable("car", c)
-    print("str(car): ")
-    print(car)
-    print("car.name: ")
-    print(car.name)
-    print("car.value: ")
-    print(car.value)
-    print("car.calculate(): ")
-    print(car.calculate())
+    const_two = Constant(2)
+    const_one = Constant(1)
+    p2 = Product(const_two,Sum(varx,const_one).result)
+    print(p2)
 
-    print()
-    
-    sum_vals = Sum(3, 1)
-    print("str(sum_vals): ")
-    print(sum_vals)
-    print("sum_vals.v1: ")
-    print(sum_vals.v1)
-    print("sum_vals.v2: ")
-    print(sum_vals.v2)
-    print("sum_vals.calculate(): ")
-    print(sum_vals.calculate())
-    print("sum_vals.simplify(): ")
-    print(sum_vals.simplify())
-
-
-    print()
-
-    sum_const = Sum(c, 0)
-    print("str(sum_const): ")
-    print(sum_const)
-    print("sum_const.v1: ")
-    print(sum_const.v1)
-    print("sum_const.v2: ")
-    print(sum_const.v2)
-    print("sum_const.calculate(): ")
-    print(sum_const.calculate())
-    print("sum_const.simplify(): ")
-    print(sum_const.simplify())
-
-    print()
-
-    sum_cvar = Sum(c, car)
-    print("str(sum_cvar): ")
-    print(sum_cvar)
-    print("sum_cvar.v1: ")
-    print(sum_cvar.v1)
-    print("sum_cvar.v2: ")
-    print(sum_cvar.v2)
-    print("sum_cvar.calculate(): ")
-    print(sum_cvar.calculate())
-    print("sum_cvar.simplify(): ")
-    print(sum_cvar.simplify())
-    
-    print()
-    
-    prod_vals = Product(3, 4)
-    print("str(prod_vals): ")
-    print(prod_vals)
-    print("prod_vals.v1: ")
-    print(prod_vals.v1)
-    print("prod_vals.v2: ")
-    print(prod_vals.v2)
-    print("prod_vals.calculate(): ")
-    print(prod_vals.calculate())
-    print("prod_vals.simplify(): ")
-    print(prod_vals.simplify())
-
-
-    print()
-
-    prod_const = Product(c, 1)
-    print("str(prod_const): ")
-    print(prod_const)
-    print("prod_const.v1: ")
-    print(prod_const.v1)
-    print("prod_const.v2: ")
-    print(prod_const.v2)
-    print("prod_const.calculate(): ")
-    print(prod_const.calculate())
-    print("prod_const.simplify(): ")
-    print(prod_const.simplify())
-
-    print()
-
-    prod_cvar = Product(0, car)
-    print("str(prod_cvar): ")
-    print(prod_cvar)
-    print("prod_cvar.v1: ")
-    print(prod_cvar.v1)
-    print("prod_cvar.v2: ")
-    print(prod_cvar.v2)
-    print("prod_cvar.calculate(): ")
-    print(prod_cvar.calculate())
-    print("prod_cvar.simplify(): ")
-    print(prod_cvar.simplify())
+    s2 = Sum(const_two,Product(varx,Sum(varx,const_one).result).result)
+    print(s2)
