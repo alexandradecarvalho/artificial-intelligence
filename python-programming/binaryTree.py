@@ -13,6 +13,7 @@ class Node:
 
     def getChildren(self):
         return (self.left, self.right)
+
     def __str__(self):
         return ("Node=" + str(self.value) + "-> " + str(self.left) + ", " + str(self.right) + "\n")
 
@@ -48,6 +49,15 @@ class BinaryTree:
             return self.findNode(value, node.right)
         else:
             return False
+    
+    def isIsomorphic(self, node1, node2):
+        if node1 == None and node2 == None:
+            return True
+        elif node1.value != node2.value:
+            return False
+        else:
+            return (self.isIsomorphic(node1.left, node2.left) and self.isIsomorphic(node1.right, node2.right)) or (self.isIsomorphic(node1.left, node2.right) and self.isIsomorphic(node1.right, node2.left))
+
 
     def __str__(self):
         return ("Tree with root: " + str(self.root))
@@ -61,5 +71,20 @@ if __name__ == "__main__":
     btree.addNode(2)
     print(btree)
 
+    print("---")
     print(btree.findNode(4))
     print(btree.findNode(6))
+    print("---")
+    
+    b2 = BinaryTree(5)
+    b2.addNode(3)
+    b2.addNode(4)
+    b2.addNode(0)
+    b2.addNode(8)
+    b2.addNode(2)
+    print(b2.isIsomorphic(b2.root,btree.root))
+
+    b3 = BinaryTree(4)
+    b2.addNode(3)
+    b2.addNode(5)
+    print(b3.isIsomorphic(b3.root,btree.root))
